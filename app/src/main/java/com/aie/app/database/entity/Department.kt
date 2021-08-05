@@ -12,6 +12,6 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "department")
 data class Department(
-    @PrimaryKey(autoGenerate = true) val id: Int,
-    @ColumnInfo(name = "name") val name: String?
+    @PrimaryKey(autoGenerate = true) val dept_id: Int,
+    @ColumnInfo(name = "dept_name") val name: String?
 )

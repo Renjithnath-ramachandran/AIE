@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Transaction
 import com.aie.app.database.entity.Employee
+import com.aie.app.model.EmployeeWithDept
 
 
 /**
@@ -22,4 +24,8 @@ interface EmployeeDao {
 
     @Query("DELETE FROM employee")
     fun deleteAllEmployees()
+
+    @Transaction
+    @Query("SELECT * FROM employee")
+    fun getEmployeeWithDept(): LiveData<List<EmployeeWithDept>>
 }

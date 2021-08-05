@@ -13,16 +13,16 @@ import androidx.room.PrimaryKey
 
 
 
-//@Entity(tableName = "employee", foreignKeys = arrayOf(
-//    ForeignKey(entity = Department::class, parentColumns = arrayOf(
-//    "id"), childColumns = arrayOf("id"), onDelete = ForeignKey.CASCADE
-//    )
-//))
+@Entity(tableName = "employee", foreignKeys = arrayOf(
+    ForeignKey(entity = Department::class, parentColumns = arrayOf(
+    "dept_id"), childColumns = arrayOf("department_id"), onDelete = ForeignKey.CASCADE
+    )
+))
 
-@Entity(tableName = "employee")
+//@Entity(tableName = "employee")
 data class Employee(
     @PrimaryKey(autoGenerate = true) val id: Int,
-    @ColumnInfo(name = "name") val name: String?,
+    @ColumnInfo(name = "emp_name") val emp_name: String?,
     @ColumnInfo(name = "joining_date") val joining_date: String?,
     @ColumnInfo(name = "manager_id") val manager_id: Int?,
     @ColumnInfo(name = "department_id") val department_id: Int?

@@ -18,7 +18,7 @@ class DepartmentRepository(application: Application) {
     init {
         val employeeDatabase = EmployeeDatabase.getInstance(application)
         departmentDao = employeeDatabase.departmentDao()
-        deleteDepartmentAsyncTask(departmentDao).execute()
+//        deleteDepartmentAsyncTask(departmentDao).execute()
     }
 
     fun deleteDepartment() {

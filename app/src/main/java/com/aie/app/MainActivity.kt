@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aie.app.database.entity.Employee
+import com.aie.app.model.EmployeeWithDept
 import com.aie.app.viewModel.EmployeeVM
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.employee_list_item.*
@@ -35,6 +36,8 @@ class MainActivity : AppCompatActivity() {
         rv_employees!!.layoutManager = layoutManager
 
         employeeVM!!.allEmployees.observe(this, Observer {
+
+            Log.e("", "")
             employeeListAdapter = EmployeeListAdapter(
                 this,
                 it.toList(),)
@@ -45,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
     private inner class EmployeeListAdapter(
         internal var context: Context,
-        internal var employeeList: List<Employee>
+        internal var employeeList: List<EmployeeWithDept>
     ) : RecyclerView.Adapter<EmployeeListAdapter.EmployeeListViewHolder>() {
         override fun onCreateViewHolder(
             parent: ViewGroup,
@@ -60,26 +63,26 @@ class MainActivity : AppCompatActivity() {
             holder: EmployeeListViewHolder,
             position: Int
         ) {
-            val employee: Employee = employeeList.get(position)
+            val employee: EmployeeWithDept = employeeList.get(position)
 
-            if(employee.id > 0) {
-                holder.tvId.text = employee.id.toString()
+            if(employee.employee.id > 0) {
+                holder.tvId.text = employee.employee.id.toString()
             }
 
-            if(employee.name != null) {
-                holder.tvName.text = employee.name
+            if(employee.employee.emp_name != null) {
+                holder.tvName.text = employee.employee.emp_name
             }
 
-            if(employee.joining_date != null) {
-                holder.tvJoinDate.text = employee.joining_date
+            if(employee.employee.joining_date != null) {
+                holder.tvJoinDate.text = employee.employee.joining_date
             }
 
-            if(employee.manager_id!! > 0) {
-                holder.tvManagerId.text = employee.manager_id.toString()
+            if(employee.employee.manager_id!! > 0) {
+                holder.tvManagerId.text = employee.employee.manager_id.toString()
             }
 
-            if(employee.department_id!! > 0) {
-                holder.tvDepartmentId.text = employee.department_id.toString()
+            if(employee.department.isNotEmpty()) {
+                holder.tvDepartmentId.text = employee.department[0].name
             }
         }
 

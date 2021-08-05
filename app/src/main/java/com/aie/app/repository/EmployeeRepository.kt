@@ -7,6 +7,7 @@ import com.aie.app.database.EmployeeDatabase
 import com.aie.app.database.dao.DepartmentDao
 import com.aie.app.database.dao.EmployeeDao
 import com.aie.app.database.entity.Employee
+import com.aie.app.model.EmployeeWithDept
 
 
 /**
@@ -16,20 +17,27 @@ import com.aie.app.database.entity.Employee
 class EmployeeRepository(application: Application) {
 
     private val employeeDao: EmployeeDao
-    private val liveEmployeeData: LiveData<List<Employee>>
+//    private lateinit var liveEmployeeData: LiveData<List<Employee>>
+    private lateinit var liveEmployeeData: LiveData<List<EmployeeWithDept>>
 
     init {
         val employeeDatabase = EmployeeDatabase.getInstance(application)
         employeeDao = employeeDatabase.employeeDao()
-        deleteEmployeeAsyncTask(employeeDao).execute()
-        liveEmployeeData = employeeDao.getAllEmployees()
+//        deleteEmployeeAsyncTask(employeeDao).execute()
+
     }
 
     fun deleteEmployee() {
         employeeDao.deleteAllEmployees()
     }
 
-    fun getAllEmployees(): LiveData<List<Employee>> {
+//    fun getAllEmployees(): LiveData<List<Employee>> {
+//        liveEmployeeData = employeeDao.getAllEmployees()
+//        return liveEmployeeData
+//    }
+
+    fun getAllEmployees(): LiveData<List<EmployeeWithDept>> {
+        liveEmployeeData = employeeDao.getEmployeeWithDept()
         return liveEmployeeData
     }
 
